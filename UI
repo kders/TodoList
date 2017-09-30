@@ -1,0 +1,19 @@
+To-do List UI
+
+Structure:
+	To-do {
+		Title
+		Text body
+		Remind time
+	}
+
+Screens
+	- Danh sách các To-do
+		- Thêm To-do (nút cộng float button ~ Material design)
+		- Tap vào To-do -> Xem chi tiết + sửa			
+			To-do 
+			- Title
+			- Text body
+			- Set remind time
+		- Swipe để xoá
+
