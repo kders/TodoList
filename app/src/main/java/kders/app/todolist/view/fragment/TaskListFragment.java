@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import kders.app.todolist.R;
 import kders.app.todolist.databinding.FragmentTaskListBinding;
+import kders.app.todolist.view.activity.HomeActivity;
 import kders.app.todolist.view.common.BaseFragment;
 
 /**
@@ -21,15 +22,15 @@ public class TaskListFragment extends BaseFragment {
     private FragmentTaskListBinding mBinding;
     private TaskRowAdapter mTaskRowAdapter;
 
-    public TaskListListener getListener() {
+    public ITaskListListener getListener() {
         return mListener;
     }
 
-    public void setListener(TaskListListener mListener) {
+    public void setListener(ITaskListListener mListener) {
         this.mListener = mListener;
     }
 
-    private TaskListListener mListener;
+    private ITaskListListener mListener;
 
     @Nullable
     @Override
@@ -40,6 +41,10 @@ public class TaskListFragment extends BaseFragment {
         mBinding.recyclerViewTaskList.setLayoutManager(new LinearLayoutManager(getActivity()));
         mBinding.recyclerViewTaskList.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         mBinding.recyclerViewTaskList.setAdapter(mTaskRowAdapter);
+
+        mBinding.btnAddEvent.setOnClickListener(v-> mListener.onClickNewEvent());
+        mBinding.btnAddTask.setOnClickListener(v -> mListener.onClickNewTask());
+        mBinding.btnAddTodo.setOnClickListener(v -> mListener.onClickNewTodo());
         return mBinding.getRoot();
     }
 
@@ -50,6 +55,8 @@ public class TaskListFragment extends BaseFragment {
 
     @Override
     protected int getType() {
-        return 0;
+        return HomeActivity.FRAGMENT_TASK_LIST;
     }
+
+
 }

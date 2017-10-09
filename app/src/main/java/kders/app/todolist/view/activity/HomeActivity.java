@@ -5,15 +5,13 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 
 import java.util.Stack;
@@ -22,17 +20,28 @@ import kders.app.todolist.R;
 import kders.app.todolist.databinding.ActivityMainBinding;
 import kders.app.todolist.view.common.BaseFragment;
 import kders.app.todolist.view.common.BaseFragmentActivity;
+import kders.app.todolist.view.fragment.IAddEventListener;
+import kders.app.todolist.view.fragment.IAddTaskListener;
+import kders.app.todolist.view.fragment.IAddTodoListener;
+import kders.app.todolist.view.fragment.NewEventFragment;
+import kders.app.todolist.view.fragment.NewTaskFragment;
+import kders.app.todolist.view.fragment.NewTodoFragment;
 import kders.app.todolist.view.fragment.TaskListFragment;
-import kders.app.todolist.view.fragment.TaskListListener;
+import kders.app.todolist.view.fragment.ITaskListListener;
 
 public class HomeActivity extends BaseFragmentActivity
-        implements NavigationView.OnNavigationItemSelectedListener, TaskListListener{
-    public static final int FRAGMENT_TASK_LIST= 0;
-    public static final int FRAGMENT_TASK_ADD = 1;
+        implements NavigationView.OnNavigationItemSelectedListener, ITaskListListener, IAddEventListener, IAddTaskListener, IAddTodoListener {
+    public static final int FRAGMENT_TASK_LIST = 0;
+    public static final int FRAGMENT_NEW_TASK = 1;
+    public static final int FRAGMENT_NEW_EVENT = 2;
+    public static final int FRAGMENT_NEW_TODO = 3;
 
     private static final String TAG = HomeActivity.class.getName();
 
     private FragmentManager mFragmentManager;
+    private NewEventFragment mFragmentNewEvent;
+    private NewTaskFragment mFragmentNewTask;
+    private NewTodoFragment mFragmentNewTodo;
     private Stack<Fragment> mFragmentStack;
     private ActivityMainBinding mBinding;
 
@@ -52,14 +61,24 @@ public class HomeActivity extends BaseFragmentActivity
         toggle.syncState();
         mBinding.drawerLayout.setDrawerListener(toggle);
         mBinding.navView.setNavigationItemSelectedListener(this);
+        mBinding.btnFragmentBack.setOnClickListener(v -> {
+            onBackFragments();
+        });
     }
 
-    private void setupData(){
+    private void setupData() {
         mFragmentStack = new Stack<>();
         mFragmentManager = getFragmentManager();
 
         mFragmentTaskList = new TaskListFragment();
         mFragmentTaskList.setListener(this);
+
+        mFragmentNewEvent = new NewEventFragment();
+        mFragmentNewEvent.setListener(this);
+        mFragmentNewTask = new NewTaskFragment();
+        mFragmentNewTask.setListener(this);
+        mFragmentNewTodo = new NewTodoFragment();
+        mFragmentNewTodo.setListener(this);
 
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
         transaction.add(R.id.container, mFragmentTaskList);
@@ -125,6 +144,20 @@ public class HomeActivity extends BaseFragmentActivity
         return true;
     }
 
+    private void openFragment(BaseFragment fragment) {
+        FragmentTransaction transaction = mFragmentManager.beginTransaction();
+        transaction.replace(R.id.container, fragment);
+        mFragmentStack.lastElement().onPause();
+        mFragmentStack.push(fragment);
+        transaction.commit();
+    }
+
+    private void showFragmentHeader(boolean visiable, int type) {
+        mBinding.appBarLayout.setVisibility(visiable ? View.INVISIBLE : View.VISIBLE);
+        mBinding.layoutHeaderFragment.setVisibility(visiable ? View.VISIBLE : View.INVISIBLE);
+        mBinding.textViewFragmentTitle.setText(type == FRAGMENT_NEW_TODO ? "New Todo" : (type == FRAGMENT_NEW_EVENT) ? "New Event" : "New Task");
+    }
+
     @Override
     public void clickDialogPositiveText(int requestCode) {
 
@@ -133,5 +166,27 @@ public class HomeActivity extends BaseFragmentActivity
     @Override
     public void clickDialogNegativeText(int requestCode) {
 
+    }
+
+    @Override
+    public void onClickNewTask() {
+        openFragment(mFragmentNewTask);
+        showFragmentHeader(true, FRAGMENT_NEW_TASK);
+    }
+
+    @Override
+    public void onClickNewEvent() {
+        openFragment(mFragmentNewEvent);
+        showFragmentHeader(true, FRAGMENT_NEW_EVENT);
+    }
+
+    @Override
+    public void onClickNewTodo() {
+        openFragment(mFragmentNewTodo);
+        showFragmentHeader(true, FRAGMENT_NEW_TODO);
+
+    }
+
+    public void onBackFragments() {
     }
 }

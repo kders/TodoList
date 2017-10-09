@@ -12,13 +12,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
 
-        <!--        <android.support.design.widget.FloatingActionButton
-                    android:id="@+id/fab"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|end"
-                    android:layout_margin="@dimen/fab_margin"
-                    app:srcCompat="@drawable/ic_add_new" />-->
 
         <com.github.clans.fab.FloatingActionMenu
             android:id="@+id/fab"
@@ -31,26 +24,29 @@
 
 
             <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/btn_add_task"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:backgroundTint="@android:color/holo_orange_light"
                 android:src="@drawable/ic_menu_add_task"
+                app:fab_colorNormal="@android:color/holo_orange_light"
                 fab:fab_label="Add a new task"
                 fab:fab_size="mini"></com.github.clans.fab.FloatingActionButton>
 
             <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/btn_add_event"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:backgroundTint="@android:color/holo_blue_bright"
                 android:src="@drawable/ic_menu_add_event"
+                app:fab_colorNormal="@android:color/holo_blue_bright"
                 fab:fab_label="Add a event"
                 fab:fab_size="mini"></com.github.clans.fab.FloatingActionButton>
 
             <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/btn_add_todo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:backgroundTint="@android:color/holo_green_light"
                 android:src="@drawable/ic_menu_add_todo"
+                app:fab_colorNormal="@android:color/holo_green_light"
                 fab:fab_label="Add a todo"
                 fab:fab_size="mini"></com.github.clans.fab.FloatingActionButton>
         </com.github.clans.fab.FloatingActionMenu>
