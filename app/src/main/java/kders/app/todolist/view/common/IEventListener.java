@@ -14,7 +14,4 @@ public interface IEventListener {
 
     void onShowDialogError(String message);
 
-    void tokenNotValid();
-
-    void tokenRenew();
 }

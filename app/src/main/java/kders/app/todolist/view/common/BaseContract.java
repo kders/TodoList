@@ -7,8 +7,6 @@ public interface BaseContract {
         void hideLoading();
         void showError(String errorMessage);
         void showDialogError(String errorMessage);
-        void tokenNotValid();
-        void tokenRenew();
     }
 
     interface Presenter<T extends  View>{
