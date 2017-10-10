@@ -52,26 +52,70 @@
             </android.support.design.widget.AppBarLayout>
         </FrameLayout>
 
-        <android.support.v4.widget.DrawerLayout
-            android:id="@+id/drawer_layout"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:openDrawer="start">
+            android:layout_height="match_parent">
 
-            <FrameLayout
-                android:id="@+id/container"
+            <android.support.v4.widget.DrawerLayout
+                android:id="@+id/drawer_layout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"></FrameLayout>
-
-            <android.support.design.widget.NavigationView
-                android:id="@+id/nav_view"
-                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_gravity="start"
-                app:headerLayout="@layout/nav_header_main"
-                app:menu="@menu/activity_main_drawer" />
+                tools:openDrawer="start">
 
-        </android.support.v4.widget.DrawerLayout>
+                <FrameLayout
+                    android:id="@+id/container"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"></FrameLayout>
+
+                <android.support.design.widget.NavigationView
+                    android:id="@+id/nav_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="start"
+                    app:headerLayout="@layout/nav_header_main"
+                    app:menu="@menu/activity_main_drawer" />
+
+            </android.support.v4.widget.DrawerLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_footer_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/top_shadow" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@android:color/white"
+                    android:gravity="right|center">
+
+                    <TextView
+                        android:id="@+id/btn_cancel_add"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="15dp"
+                        android:text="CANCEL"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/btn_save_new"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="10dp"
+                        android:text="SAVE"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="16sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </FrameLayout>
     </LinearLayout>
 </layout>
 

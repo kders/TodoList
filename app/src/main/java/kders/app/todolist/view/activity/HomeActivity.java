@@ -31,10 +31,11 @@ import kders.app.todolist.view.fragment.ITaskListListener;
 
 public class HomeActivity extends BaseFragmentActivity
         implements NavigationView.OnNavigationItemSelectedListener, ITaskListListener, IAddEventListener, IAddTaskListener, IAddTodoListener {
-    public static final int FRAGMENT_TASK_LIST = 0;
-    public static final int FRAGMENT_NEW_TASK = 1;
-    public static final int FRAGMENT_NEW_EVENT = 2;
-    public static final int FRAGMENT_NEW_TODO = 3;
+    public static final int FRAGMENT_NONE = 0;
+    public static final int FRAGMENT_TASK_LIST = 1;
+    public static final int FRAGMENT_NEW_TASK = 2;
+    public static final int FRAGMENT_NEW_EVENT = 3;
+    public static final int FRAGMENT_NEW_TODO = 4;
 
     private static final String TAG = HomeActivity.class.getName();
 
@@ -79,7 +80,7 @@ public class HomeActivity extends BaseFragmentActivity
         mFragmentNewTask.setListener(this);
         mFragmentNewTodo = new NewTodoFragment();
         mFragmentNewTodo.setListener(this);
-
+        showFragmentHeaderAndFooter(false, FRAGMENT_TASK_LIST);
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
         transaction.add(R.id.container, mFragmentTaskList);
         mFragmentStack.push(mFragmentTaskList);
@@ -152,10 +153,12 @@ public class HomeActivity extends BaseFragmentActivity
         transaction.commit();
     }
 
-    private void showFragmentHeader(boolean visiable, int type) {
+    private void showFragmentHeaderAndFooter(boolean visiable, int type) {
         mBinding.appBarLayout.setVisibility(visiable ? View.INVISIBLE : View.VISIBLE);
         mBinding.layoutHeaderFragment.setVisibility(visiable ? View.VISIBLE : View.INVISIBLE);
-        mBinding.textViewFragmentTitle.setText(type == FRAGMENT_NEW_TODO ? "New Todo" : (type == FRAGMENT_NEW_EVENT) ? "New Event" : "New Task");
+        mBinding.layoutFooterFragment.setVisibility(visiable ? View.VISIBLE : View.INVISIBLE);
+        if (visiable)
+            mBinding.textViewFragmentTitle.setText(type == FRAGMENT_NEW_TODO ? "New Todo" : (type == FRAGMENT_NEW_EVENT) ? "New Event" : "New Task");
     }
 
     @Override
@@ -171,22 +174,35 @@ public class HomeActivity extends BaseFragmentActivity
     @Override
     public void onClickNewTask() {
         openFragment(mFragmentNewTask);
-        showFragmentHeader(true, FRAGMENT_NEW_TASK);
+        showFragmentHeaderAndFooter(true, FRAGMENT_NEW_TASK);
     }
 
     @Override
     public void onClickNewEvent() {
         openFragment(mFragmentNewEvent);
-        showFragmentHeader(true, FRAGMENT_NEW_EVENT);
+        showFragmentHeaderAndFooter(true, FRAGMENT_NEW_EVENT);
     }
 
     @Override
     public void onClickNewTodo() {
         openFragment(mFragmentNewTodo);
-        showFragmentHeader(true, FRAGMENT_NEW_TODO);
+        showFragmentHeaderAndFooter(true, FRAGMENT_NEW_TODO);
 
     }
 
     public void onBackFragments() {
+        BaseFragment baseFragment = (BaseFragment) mFragmentStack.lastElement();
+        if (baseFragment == null) return;
+        if (mFragmentStack.size() > 1) {
+            FragmentTransaction transaction = mFragmentManager.beginTransaction();
+            mFragmentStack.lastElement().onPause();
+            transaction.remove(mFragmentStack.pop());
+            baseFragment.onResume();
+            transaction.replace(R.id.container, mFragmentStack.lastElement());
+            transaction.commit();
+            showFragmentHeaderAndFooter(false, FRAGMENT_NONE);
+        } else {
+            finish();
+        }
     }
 }
