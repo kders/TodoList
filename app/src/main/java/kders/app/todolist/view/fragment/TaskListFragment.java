@@ -39,7 +39,7 @@ public class TaskListFragment extends BaseFragment {
         mTaskRowAdapter = new TaskRowAdapter();
         mBinding.recyclerViewTaskList.setHasFixedSize(true);
         mBinding.recyclerViewTaskList.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mBinding.recyclerViewTaskList.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
+        //mBinding.recyclerViewTaskList.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         mBinding.recyclerViewTaskList.setAdapter(mTaskRowAdapter);
 
         mBinding.btnAddEvent.setOnClickListener(v-> mListener.onClickNewEvent());
