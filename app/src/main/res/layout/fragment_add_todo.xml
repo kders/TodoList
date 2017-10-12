@@ -10,31 +10,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_marginTop="10dp"
-            android:hint="Task name" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
-
-            <AutoCompleteTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="project" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:background="@drawable/ic_add_new"
-                android:minHeight="0dp"
-                android:minWidth="0dp" />
-
-        </LinearLayout>
-
+            android:hint="Title" />
         <Spinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -48,18 +24,42 @@
             android:layout_marginTop="10dp"
             android:hint="Jan, 01" />
 
-        <EditText
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_marginTop="10dp"
-            android:hint="Assign to ?" />
+            android:orientation="horizontal">
+
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="At time" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/ic_add_new"
+                android:minHeight="0dp"
+                android:minWidth="0dp" />
+
+        </LinearLayout>
 
         <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp" android:minLines="3"
+            android:layout_margin="5dp"
             android:layout_marginTop="10dp"
-            android:hint="Task description" />
+            android:hint="Description"
+            android:minLines="2" />
+
+
+        <AutoCompleteTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_marginTop="10dp"
+            android:hint="Location" />
     </LinearLayout>
 </layout>
