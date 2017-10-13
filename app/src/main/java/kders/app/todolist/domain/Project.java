@@ -48,4 +48,12 @@ public class Project {
     public void setDueDate(long dueDate) {
         this.dueDate = dueDate;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        Project project = (Project) obj;
+        return (this.name != null) && (project.name != null) && (this.name.equals(project.name))
+                && (this.isPrivate == project.isPrivate)
+                && (this.dueDate == project.dueDate);
+    }
 }

@@ -18,7 +18,9 @@ public class Task {
     long location;
     boolean isDone;
 
-    public Task(int taskId, String title, String description, long dueDate, long notifyDate, int priority, int projectId, String note, int memberId, long repeatTime, long location, boolean isDone) {
+    public Task(int taskId, String title, String description, long dueDate, long notifyDate,
+                int priority, int projectId, String note, int memberId, long repeatTime,
+                long location, int isDone) {
         this.taskId = taskId;
         this.title = title;
         this.description = description;
@@ -30,7 +32,7 @@ public class Task {
         this.memberId = memberId;
         this.repeatTime = repeatTime;
         this.location = location;
-        this.isDone = isDone;
+        this.isDone = isDone == 1;
     }
 
     public int getTaskId() {
@@ -127,5 +129,23 @@ public class Task {
 
     public void setDone(boolean done) {
         isDone = done;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        Task task = (Task) obj;
+
+        return (this.title != null) && (task.title != null)
+                && (this.title.equals(task.title))
+                && (this.description != null) && (task.description != null)
+                && (this.description.equals(task.description))
+                && (this.dueDate == task.dueDate)
+                && (this.notifyDate == task.notifyDate)
+                && (this.note != null) && (task.note != null)
+                && (this.note.equals(task.note))
+                && (this.memberId == task.memberId)
+                && (this.repeatTime == task.repeatTime)
+                && (this.location == task.location)
+                && (this.isDone == task.isDone);
     }
 }

@@ -28,4 +28,11 @@ public class ActivityLog {
     public void setLog(String log) {
         this.log = log;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        ActivityLog thatLog = (ActivityLog) obj;
+        return (this.log != null) && (thatLog.log != null) && (this.log.equals(thatLog.log))
+                && (this.timestamp == thatLog.timestamp);
+    }
 }
